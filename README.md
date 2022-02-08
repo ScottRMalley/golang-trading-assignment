@@ -1,8 +1,8 @@
+
 # Golang Trading Assignment
 
 In this assignment, you will be building a trading backend in Golang that pairs and executes limit orders as well as 
-exposes some
-market data.
+exposes some market data.
 
 ## Pairing orders
 
@@ -46,7 +46,13 @@ This leaves the order book in the following state:
 
 NB: order 3 is executed only partially.
 
-Your service will recieve orders from a Kafka topic `orders` with the following format:
+Your service should initialize an isolated, separate orderbook for each configured pair.
+Orders come in from a message queue, in this case Kafka. You are free to simulate reading
+data from Kafka to avoid having to run it, but your code should be able to switch to kafka
+with only a configuration change.
+
+Your service (in production) would recieve orders from a Kafka topic `orders` with the
+following format:
 
 ```json
 {
@@ -60,12 +66,12 @@ Your service will recieve orders from a Kafka topic `orders` with the following 
 The fields are:
 
 - `asset` - string, asset name, for simplicity this can be any text
-- `price` - number, a price for limit order
+- `price` - number, a price for limit order in Euro
 - `amount` - number, amount of asset to fill by order
 - `direction` - string, can be either "BUY" or "SELL"
 
-The service should pair and execute orders as they are coming in, and maintain an order book for outstanding
-orders.
+Orders should be executed as they come in and it should be possible to query the current
+state of the system using the REST API described below.
 
 ## Rest API
 
@@ -150,9 +156,12 @@ The fields are:
 ## Requirements
 
 - Clear and concise code
-- Should demonstrate a knowledge of tools and practices in Golang (eg. think about asynchronous processes and how 
-  best to handle them)
 - Don't over-engineer, think about the simplest solution and implement it
+- Should demonstrate a knowledge of tools and best practices in Golang (eg. concurrency,
+  memory management, separation of concerns and API design, linting)
+- Make sure to include a few tests to verify your solution
+- If you decide to use particular libraries or techniques please explain the decision in a
+  concise comment
 
 ## Test Data
 
