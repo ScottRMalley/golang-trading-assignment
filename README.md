@@ -167,5 +167,5 @@ The fields are:
 
 To help with building your service, we've provided some test data in `data/orders`. It constitutes a sequence of 
 orders (both `BUY` and `SELL`) for three different assets (`BTC`, `SPOT`, and `CMG`). Note that the data is mostly 
-rediculous and does not mimick actual market behaviours, nor reflect true asset prices. That being said, it should 
+ridiculous and does not mimick actual market behaviours, nor reflect true asset prices. That being said, it should 
 still be possible to construct a consistent order book from this stream of incoming orders.
